@@ -1,9 +1,9 @@
 {
-    "index": 5,
+    "index": 1,
     "timestamp": 1587641032.142559,
     "sender": "ui1",
     "amount": 2,
     "message": "hello",
     "recipient": "ui2",
-    "hash": "c84d8a55235d64c85fcd9280d75aecc196519b6da1e198aecd96eae8b283a6c5"
+    "hash": "0"
 }
