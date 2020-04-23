@@ -26,13 +26,7 @@ def check_integrity():
         print('block {} is {}'.format(prev_block, res))
 
 
-def get_files():
-	files = os.listdir(chain_dir)# получили список всех файлов, хранящихся в папке chain
-	return sorted([int(i) for i in files])# сортируем названия файлов в порядке возрастания, как целочисленные значения
-
-
 def write_block(sender, amount, message, recipient, prev_hash=''):
-	files = get_files()
 	prev_file = files[-1]# последний блок, который находится в папке chain
 	file_name = str(prev_file + 1)# называем след.файл символьным значением
 	prev_hash = get_hash(str(prev_file))# олучаем хэш предыдущего файла
@@ -46,7 +40,7 @@ def write_block(sender, amount, message, recipient, prev_hash=''):
 			 'hash': prev_hash}
 
 	with open(chain_dir + file_name, 'w') as file:
-		json.dump(block, file, indent=4, ensure_ascii=False)
+		json.dump(block, file)
 
 def main():
 	sender = input()
