@@ -39,9 +39,9 @@ def create_account(wallet):
 
 
 def write_block(sender, amount, message, recipient, prev_hash=''):
-	prev_file = files[-1]# последний блок, который находится в папке chain
-	file_name = str(prev_file + 1)# называем след.файл символьным значением
-	prev_hash = get_hash(str(prev_file))# олучаем хэш предыдущего файла
+	prev_file = files[-1]  # последний блок, который находится в папке chain
+	file_name = str(prev_file + 1)  # называем след.файл символьным значением
+	prev_hash = get_hash(str(prev_file))  # олучаем хэш предыдущего файла
 
 	for file in files[1:]:
 		u = json.load(open(chain_dir + str(file)))['userid']
@@ -72,7 +72,7 @@ def main():
 
 	#write_block(input(), int(input()), input(), input())
 	# check_integrity()
-	#create_account(int(input()))
+	create_account(int(input()))
 
 
 if __name__ == '__main__':
