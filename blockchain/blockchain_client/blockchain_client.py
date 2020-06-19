@@ -1,4 +1,4 @@
-from flask import Flask,jsonify, render_template,request
+from flask import Flask, jsonify, render_template, request
 import Cryptodome
 import Cryptodome.Random
 from Cryptodome.PublicKey import RSA
