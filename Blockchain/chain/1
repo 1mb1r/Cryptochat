@@ -1,9 +1,0 @@
-{
-    "index": 1,
-    "timestamp": 1587641032.142559,
-    "sender": "ui1",
-    "amount": 2,
-    "message": "hello",
-    "recipient": "ui2",
-    "hash": "0"
-}
