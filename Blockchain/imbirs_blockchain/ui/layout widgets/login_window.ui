@@ -26,19 +26,6 @@
    <string notr="true">background-color: rgb(255, 255, 255);</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
-   <item row="0" column="1">
-    <spacer name="verticalSpacer_4">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>28</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
    <item row="1" column="1" rowspan="2">
     <layout class="QVBoxLayout" name="verticalLayout_8">
      <item>
@@ -110,7 +97,7 @@
             <number>0</number>
            </property>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="2,5,0">
+            <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,5,0">
              <property name="spacing">
               <number>0</number>
              </property>
@@ -118,7 +105,7 @@
               <enum>QLayout::SetFixedSize</enum>
              </property>
              <property name="leftMargin">
-              <number>2</number>
+              <number>0</number>
              </property>
              <property name="rightMargin">
               <number>0</number>
@@ -144,6 +131,24 @@
                  <verstretch>1</verstretch>
                 </sizepolicy>
                </property>
+               <property name="minimumSize">
+                <size>
+                 <width>230</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>230</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Segoe UI</family>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
                <property name="layoutDirection">
                 <enum>Qt::LeftToRight</enum>
                </property>
@@ -158,11 +163,29 @@ background: white;
 selection-background-color: darkgray;
 </string>
                </property>
+               <property name="inputMethodHints">
+                <set>Qt::ImhNone</set>
+               </property>
+               <property name="inputMask">
+                <string notr="true"/>
+               </property>
                <property name="text">
                 <string/>
                </property>
+               <property name="maxLength">
+                <number>64</number>
+               </property>
+               <property name="echoMode">
+                <enum>QLineEdit::Password</enum>
+               </property>
                <property name="placeholderText">
                 <string> Enter your local password. . .</string>
+               </property>
+               <property name="cursorMoveStyle">
+                <enum>Qt::LogicalMoveStyle</enum>
+               </property>
+               <property name="clearButtonEnabled">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
@@ -182,18 +205,18 @@ selection-background-color: darkgray;
             </layout>
            </item>
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,2,1">
+            <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,0,1">
              <property name="spacing">
               <number>0</number>
              </property>
              <property name="leftMargin">
-              <number>22</number>
+              <number>0</number>
              </property>
              <property name="topMargin">
               <number>5</number>
              </property>
              <property name="rightMargin">
-              <number>9</number>
+              <number>0</number>
              </property>
              <property name="bottomMargin">
               <number>12</number>
@@ -213,6 +236,21 @@ selection-background-color: darkgray;
              </item>
              <item>
               <widget class="QLabel" name="label_2">
+               <property name="minimumSize">
+                <size>
+                 <width>230</width>
+                 <height>2</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>230</width>
+                 <height>2</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(0, 85, 255)</string>
+               </property>
                <property name="text">
                 <string/>
                </property>
@@ -253,6 +291,9 @@ selection-background-color: darkgray;
                <property name="leftMargin">
                 <number>18</number>
                </property>
+               <property name="topMargin">
+                <number>10</number>
+               </property>
                <property name="rightMargin">
                 <number>30</number>
                </property>
@@ -280,13 +321,35 @@ selection-background-color: darkgray;
                    <verstretch>1</verstretch>
                   </sizepolicy>
                  </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>110</width>
+                   <height>22</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>110</width>
+                   <height>22</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>MS Shell Dlg 2</family>
+                   <pointsize>11</pointsize>
+                   <weight>50</weight>
+                   <italic>false</italic>
+                   <bold>false</bold>
+                   <kerning>true</kerning>
+                  </font>
+                 </property>
                  <property name="cursor">
                   <cursorShape>PointingHandCursor</cursorShape>
                  </property>
                  <property name="styleSheet">
                   <string notr="true">
 QPushButton{
-border: 2px solid gray;
+border: none;
 font: 8pt &quot;Vityaz&quot;;
 border-radius: 10px;
 padding: 0 8px;
@@ -389,7 +452,7 @@ background-image: linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
          <property name="sizeHint" stdset="0">
           <size>
            <width>20</width>
-           <height>40</height>
+           <height>20</height>
           </size>
          </property>
         </spacer>
@@ -446,41 +509,7 @@ border-radius: 10px;
 }</string>
            </property>
            <property name="text">
-            <string>Or create a new anonymous addres:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_3">
-           <property name="cursor">
-            <cursorShape>PointingHandCursor</cursorShape>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QPushButton{
-background-color: rgb(255, 255, 255);
-font: 9pt \&quot;MS Shell Dlg 2\&quot;;
-
-
-color: rgb(68, 118, 179);
-border-radius: 10px;
-}
-
-QPushButton:hover{
-border: ipx solid #828282;
-color: rgb(20, 120, 250);
-}
-
-QPushButton:hover:pressed{
-background-color: rgb(255, 255, 255);
-font: 9pt \&quot;MS Shell Dlg 2\&quot;;
-
-
-color: black;
-border-radius: 10px;
-}</string>
-           </property>
-           <property name="text">
-            <string>C̲r̲e̲a̲t̲e̲ ̲n̲e̲w̲</string>
+            <string>Or create a new anonymous addres</string>
            </property>
           </widget>
          </item>
@@ -538,6 +567,19 @@ border-radius: 10px;
       <size>
        <width>361</width>
        <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="0" column="1">
+    <spacer name="verticalSpacer_4">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>28</height>
       </size>
      </property>
     </spacer>

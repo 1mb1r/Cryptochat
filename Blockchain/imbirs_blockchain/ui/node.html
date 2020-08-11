@@ -119,13 +119,17 @@
                             <input v-model.number="outgoingTx.amount" type="number" step="0.001" class="form-control" id="amount">
                             <small class="form-text text-muted">Fractions are possible (e.g. 5.67)</small>
                         </div>
+                        <div class="form-group">
+                            <label for="msg">Your message</label>
+                            <input v-model="outgoingTx.msg" type="text" class="form-control" id="msg" placeholder="message">
+                        </div>
                         <div v-if="txLoading" class="lds-ring">
                             <div></div>
                             <div></div>
                             <div></div>
                             <div></div>
                         </div>
-                        <button :disabled="txLoading || outgoingTx.recipient.trim() === '' || outgoingTx.amount <= 0" type="submit" class="btn btn-primary">Send</button>
+                        <button :disabled="txLoading || outgoingTx.recipient.trim() === '' || outgoingTx.amount <= 0 || outgoingTx.msg.trim() === '' " type="submit" class="btn btn-primary">Send</button>
                     </form>
                 </div>
             </div>
@@ -174,6 +178,7 @@
                                             <div>Sender: {{ tx.sender }}</div>
                                             <div>Recipient: {{ tx.recipient }}</div>
                                             <div>Amount: {{ tx.amount }}</div>
+                                            <div>Message: {{ tx.msg }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -193,6 +198,7 @@
                                             <div>Sender: {{ data.sender }}</div>
                                             <div>Recipient: {{ data.recipient }}</div>
                                             <div>Amount: {{ data.amount }}</div>
+                                            <div>Message: {{ data.msg }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -223,7 +229,8 @@
                 funds: 0,
                 outgoingTx: {
                     recipient: '',
-                    amount: 0
+                    amount: 0,
+                    msg: ''
                 }
             },
             computed: {
@@ -286,7 +293,8 @@
                     var vm = this;
                     axios.post('/transaction', {
                         recipient: this.outgoingTx.recipient,
-                        amount: this.outgoingTx.amount
+                        amount: this.outgoingTx.amount,
+                        msg: this.outgoingTx.msg
                     })
                     .then(function(response) {
                         vm.error = null;

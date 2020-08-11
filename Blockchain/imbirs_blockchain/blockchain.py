@@ -74,7 +74,8 @@ class Blockchain:
                         tx['sender'],
                         tx['recipient'],
                         tx['signature'],
-                        tx['amount']) for tx in block['transactions']]
+                        tx['amount'],
+                        tx['msg']) for tx in block['transactions']]
                     updated_block = Block(
                         block['index'],
                         block['previous_hash'],
@@ -92,7 +93,8 @@ class Blockchain:
                         tx['sender'],
                         tx['recipient'],
                         tx['signature'],
-                        tx['amount'])
+                        tx['amount'],
+                        tx['msg'])
                     updated_transactions.append(updated_transaction)
                 self.__open_transactions = updated_transactions
                 peer_nodes = json.loads(file_content[2])
@@ -207,6 +209,7 @@ class Blockchain:
                         sender,
                         signature,
                         amount=1.0,
+                        msg='',
                         is_receiving=False):
         """ Append a new value as well as the last blockchain value to the blockchain.
 
@@ -223,7 +226,7 @@ class Blockchain:
         # }
         # if self.public_key == None:
         #     return False
-        transaction = Transaction(sender, recipient, signature, amount)
+        transaction = Transaction(sender, recipient, signature, amount, msg)
         if Verification.verify_transaction(transaction, self.get_balance):
             self.__open_transactions.append(transaction)
             self.save_data()
@@ -236,7 +239,8 @@ class Blockchain:
                                                      'sender': sender,
                                                      'recipient': recipient,
                                                      'amount': amount,
-                                                     'signature': signature
+                                                     'signature': signature,
+                                                     'msg': msg
                                                  })
                         if (response.status_code == 400 or
                                 response.status_code == 500):
@@ -302,7 +306,8 @@ class Blockchain:
             tx['sender'],
             tx['recipient'],
             tx['signature'],
-            tx['amount']) for tx in block['transactions']]
+            tx['amount'],
+            tx['msg']) for tx in block['transactions']]
         # Validate the proof of work of the block and store the result (True
         # or False) in a variable
         proof_is_valid = Verification.valid_proof(
@@ -330,7 +335,8 @@ class Blockchain:
                 if (opentx.sender == itx['sender'] and
                         opentx.recipient == itx['recipient'] and
                         opentx.amount == itx['amount'] and
-                        opentx.signature == itx['signature']):
+                        opentx.signature == itx['signature'] and
+                        opentx.msg == itx['msg']):
                     try:
                         self.__open_transactions.remove(opentx)
                     except ValueError:
@@ -361,7 +367,8 @@ class Blockchain:
                             tx['sender'],
                             tx['recipient'],
                             tx['signature'],
-                            tx['amount']) for tx in block['transactions']
+                            tx['amount'],
+                            tx['msg']) for tx in block['transactions']
                     ],
                         block['proof'],
                         block['timestamp']) for block in node_chain
