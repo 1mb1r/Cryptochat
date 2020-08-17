@@ -20,7 +20,7 @@ class Verification:
             :proof: The proof number we're testing.
         """
         # Create a string with all the hash inputs
-        guess = (str([tx.to_ordered_dict() for tx in transactions]
+        guess = (str([tx.to_ordered_dict for tx in transactions]
                      ) + str(last_hash) + str(proof)).encode()
         # Hash the string
         # IMPORTANT: This is NOT the same hash as will be stored in the

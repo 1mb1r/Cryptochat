@@ -78,7 +78,7 @@ def broadcast_transaction():
     if not values:
         response = {'message': 'No data found.'}
         return jsonify(response), 400
-    required = ['sender', 'recipient', 'amount', 'signature']
+    required = ['sender', 'recipient', 'amount', 'msg', 'signature']
     if not all(key in values for key in required):
         response = {'message': 'Some data is missing.'}
         return jsonify(response), 400
@@ -87,6 +87,7 @@ def broadcast_transaction():
         values['sender'],
         values['signature'],
         values['amount'],
+        values['msg'],
         is_receiving=True)
     if success:
         response = {
@@ -95,8 +96,9 @@ def broadcast_transaction():
                 'sender': values['sender'],
                 'recipient': values['recipient'],
                 'amount': values['amount'],
+                'msg': values['msg'],
                 'signature': values['signature']
-            }
+                            }
         }
         return jsonify(response), 201
     else:
@@ -147,7 +149,7 @@ def add_transaction():
             'message': 'No data found.'
         }
         return jsonify(response), 400
-    required_fields = ['recipient', 'amount']
+    required_fields = ['recipient', 'amount', 'msg']
     if not all(field in values for field in required_fields):
         response = {
             'message': 'Required data is missing.'
@@ -155,9 +157,10 @@ def add_transaction():
         return jsonify(response), 400
     recipient = values['recipient']
     amount = values['amount']
-    signature = wallet.sign_transaction(wallet.public_key, recipient, amount)
+    msg = values['msg']
+    signature = wallet.sign_transaction(wallet.public_key, recipient, amount, msg)
     success = blockchain.add_transaction(
-        recipient, wallet.public_key, signature, amount)
+        recipient, wallet.public_key, signature, amount, msg)
     if success:
         response = {
             'message': 'Successfully added transaction.',
@@ -165,6 +168,7 @@ def add_transaction():
                 'sender': wallet.public_key,
                 'recipient': recipient,
                 'amount': amount,
+                'msg': msg,
                 'signature': signature
             },
             'funds': blockchain.get_balance()
