@@ -13,16 +13,14 @@ class Transaction(Printable):
         :amount: The amount of coins sent.
     """
 
-    def __init__(self, sender, recipient, signature, amount, msg):
+    def __init__(self, sender, recipient, signature, amount):
         self.sender = sender
         self.recipient = recipient
         self.amount = amount
         self.signature = signature
-        self.msg = msg
 
     def to_ordered_dict(self):
         """Converts this transaction into a (hashable) OrderedDict."""
         return OrderedDict([('sender', self.sender),
                             ('recipient', self.recipient),
-                            ('amount', self.amount),
-                            ('msg', self.msg)])
+                            ('amount', self.amount)])

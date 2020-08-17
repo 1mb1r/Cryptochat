@@ -147,7 +147,7 @@ def add_transaction():
             'message': 'No data found.'
         }
         return jsonify(response), 400
-    required_fields = ['recipient', 'amount', 'msg']
+    required_fields = ['recipient', 'amount']
     if not all(field in values for field in required_fields):
         response = {
             'message': 'Required data is missing.'
@@ -155,10 +155,9 @@ def add_transaction():
         return jsonify(response), 400
     recipient = values['recipient']
     amount = values['amount']
-    msg = values['msg']
-    signature = wallet.sign_transaction(wallet.public_key, recipient, amount, msg)
+    signature = wallet.sign_transaction(wallet.public_key, recipient, amount)
     success = blockchain.add_transaction(
-        recipient, wallet.public_key, signature, amount, msg)
+        recipient, wallet.public_key, signature, amount)
     if success:
         response = {
             'message': 'Successfully added transaction.',
@@ -166,8 +165,7 @@ def add_transaction():
                 'sender': wallet.public_key,
                 'recipient': recipient,
                 'amount': amount,
-                'signature': signature,
-                'msg': msg
+                'signature': signature
             },
             'funds': blockchain.get_balance()
         }
@@ -284,4 +282,4 @@ if __name__ == '__main__':
     port = args.port
     wallet = Wallet(port)
     blockchain = Blockchain(wallet.public_key, port)
-    app.run()
+    app.run(host='0.0.0.0', port=port)
