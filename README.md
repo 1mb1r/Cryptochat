@@ -1,10 +1,7 @@
 # Cryptochat
-Cryptochat develop
+It is a messaging application client for Cryptochat Blockchain.
 
-1) создаете 2х юзеров (раскомментите create_account() в def main() и задайте им значение кошелька(например одному 10 а другому 20)
+Cryptochat is a decentralized anonymous messenger based on the blockchain system.
+The Cryptochat blockchain system belongs to its users. Nobody can control, block, deactivate, restrict or censor accounts. Users take full responsibility for their content, messages, media, and goals and intentions of using the messenger.
 
-
-2) после этого комментируете create_account() и раскомментируете write_block сначала вставляете из  Blockchain\chain\2 'userid' потом сумму потом сообщение потом из Blockchain\chain\3 'userid'
-
-
-3) смотрите в создавшийся блок
+Privacy is the main concept of Cryptochat: neither phone numbers nor emails are required. Apps have no access to the contact list or geotags, IPs are hidden from chatters and paranoids can use Cryptochat via VPN.
