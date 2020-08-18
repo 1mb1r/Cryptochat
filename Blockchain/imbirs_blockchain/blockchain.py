@@ -268,7 +268,7 @@ class Blockchain:
         #     'amount': MINING_REWARD
         # }
         reward_transaction = Transaction(
-            'MINING', self.public_key, '', MINING_REWARD)
+            'MINING', self.public_key, '', MINING_REWARD, 'mining')
         # Copy transaction instead of manipulating the original
         # open_transactions list
         # This ensures that if for some reason the mining should fail,
