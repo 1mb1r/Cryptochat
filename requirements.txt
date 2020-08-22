@@ -1,0 +1,6 @@
+flask==1.1.2
+Flask-Cors==3.0.8
+pycryptodomex==3.9.7
+PySide2==5.15.0
+requests==2.24.0
+PyQt5==5.13.2

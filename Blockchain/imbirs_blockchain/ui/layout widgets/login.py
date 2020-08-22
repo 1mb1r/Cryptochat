@@ -8,6 +8,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PySide2.examples.widgets.animation.easing.ui_form import Ui_Form
 
 
 class Ui_Form(object):
@@ -248,3 +249,12 @@ class Ui_Form(object):
         self.lineEdit.setPlaceholderText(_translate("Form", " Enter your local password. . ."))
         self.pushButton.setText(_translate("Form", "LOGIN"))
         self.pushButton_2.setText(_translate("Form", "Or create a new anonymous addres"))
+
+    if __name__ == "__main__":
+        import sys
+        app = QtWidgets.QApplication(sys.argv)
+        MainWindow = QtWidgets.QMainWindow()
+        ui = Ui_Form()
+        ui.setupUi(MainWindow)
+        MainWindow.show()
+        sys.exit(app.exec_())
