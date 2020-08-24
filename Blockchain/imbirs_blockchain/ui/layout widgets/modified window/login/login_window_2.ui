@@ -122,7 +122,7 @@
                 <string/>
                </property>
                <property name="pixmap">
-                <pixmap>../../итоги по проекту — копия/вход/2020-08-08_012419.png</pixmap>
+                <pixmap>2020-08-08_012419.png</pixmap>
                </property>
                <property name="scaledContents">
                 <bool>true</bool>
@@ -249,7 +249,7 @@ selection-background-color: darkgray;
                     <string/>
                    </property>
                    <property name="pixmap">
-                    <pixmap>../../итоги по проекту — копия/вход/2020-08-08_004209.png</pixmap>
+                    <pixmap>2020-08-08_004209.png</pixmap>
                    </property>
                    <property name="scaledContents">
                     <bool>false</bool>
@@ -375,7 +375,7 @@ background-image: linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
                       <string/>
                      </property>
                      <property name="pixmap">
-                      <pixmap>../../итоги по проекту — копия/вход/2020-08-24_102511.png</pixmap>
+                      <pixmap>2020-08-24_102511.png</pixmap>
                      </property>
                     </widget>
                    </item>
