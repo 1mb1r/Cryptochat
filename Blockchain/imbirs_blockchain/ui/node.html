@@ -173,12 +173,14 @@
                             <div v-if="view === 'chain'" class="collapse" :class="{show: showElement === index}">
                                 <div class="card-body">
                                     <p>Previous Hash: {{ data.previous_hash }}</p>
+                                    <p>Proof: {{ data.proof }}</p>
                                     <div class="list-group">
                                         <div v-for="tx in data.transactions" class="list-group-item flex-column align-items-start">
                                             <div>Sender: {{ tx.sender }}</div>
                                             <div>Recipient: {{ tx.recipient }}</div>
                                             <div>Amount: {{ tx.amount }}</div>
-                                            <div>Msg: {{ tx.msg }}</div>
+                                            <div>Message: {{ tx.msg }}</div>
+                                            <div>Signature: {{ tx.signature }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -199,6 +201,7 @@
                                             <div>Recipient: {{ data.recipient }}</div>
                                             <div>Amount: {{ data.amount }}</div>
                                             <div>Msg: {{ data.msg }}</div>
+                                            <div>Signature: {{data.signature }}</div>
                                         </div>
                                     </div>
                                 </div>

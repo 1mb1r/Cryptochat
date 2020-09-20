@@ -23,7 +23,7 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(255, 255, 255);</string>
+   <string notr="true">background-color:rgb(255, 255, 255)</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="1" column="1" rowspan="2">
@@ -77,7 +77,7 @@
             <string/>
            </property>
            <property name="pixmap">
-            <pixmap>2020-08-08_012419.png</pixmap>
+            <pixmap>modified login/2020-08-08_012419.png</pixmap>
            </property>
            <property name="scaledContents">
             <bool>true</bool>
@@ -164,7 +164,7 @@ selection-background-color: darkgray;
 </string>
                </property>
                <property name="inputMethodHints">
-                <set>Qt::ImhNone</set>
+                <set>Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData</set>
                </property>
                <property name="inputMask">
                 <string notr="true"/>
@@ -284,18 +284,18 @@ selection-background-color: darkgray;
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_3">
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,3,0,1,1">
+              <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,3,0,0,1">
                <property name="spacing">
                 <number>7</number>
                </property>
                <property name="leftMargin">
-                <number>18</number>
+                <number>9</number>
                </property>
                <property name="topMargin">
                 <number>10</number>
                </property>
                <property name="rightMargin">
-                <number>30</number>
+                <number>50</number>
                </property>
                <property name="bottomMargin">
                 <number>12</number>
@@ -401,12 +401,28 @@ background-image: linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
                 </spacer>
                </item>
                <item>
-                <widget class="QLabel" name="label_3">
+                <widget class="QPushButton" name="pushButton_3">
+                 <property name="minimumSize">
+                  <size>
+                   <width>30</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">border:none</string>
+                 </property>
                  <property name="text">
                   <string/>
                  </property>
-                 <property name="pixmap">
-                  <pixmap>2020-08-08_004610.png</pixmap>
+                 <property name="icon">
+                  <iconset>
+                   <normaloff>2020-08-24_102511.png</normaloff>2020-08-24_102511.png</iconset>
+                 </property>
+                 <property name="flat">
+                  <bool>true</bool>
                  </property>
                 </widget>
                </item>

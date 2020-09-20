@@ -32,7 +32,15 @@ class Verification:
         # This condition is of course defined by you. You could also require
         # 10 leading 0s - this would take significantly longer (and this
         # allows you to control the speed at which new blocks can be added)
-        return guess_hash[0:2] == '00'
+
+        return guess_hash[0:4] == '0000'
+
+    @staticmethod
+    def valid_guess_hash(transactions, last_hash, proof):
+        guess = (str([tx.to_ordered_dict for tx in transactions]
+                     ) + str(last_hash) + str(proof)).encode()
+        guess_hash = hash_string_256(guess)
+        return guess_hash
 
     @classmethod
     def verify_chain(cls, blockchain):

@@ -1,6 +1,7 @@
 from time import time
 
 from utility.printable import Printable
+from utility.verification import Verification
 
 
 class Block(Printable):
@@ -21,3 +22,4 @@ class Block(Printable):
         self.timestamp = time
         self.transactions = transactions
         self.proof = proof
+

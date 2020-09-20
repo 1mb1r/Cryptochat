@@ -144,7 +144,14 @@ class Blockchain:
             last_hash, proof
         ):
             proof += 1
-        return proof
+            print(proof)
+        g_hash = Verification.valid_guess_hash(
+            self.__open_transactions,
+            last_hash, proof
+        )
+        return proof, g_hash
+
+
 
     def get_balance(self, sender=None):
         """Calculate and return the balance for a participant.
@@ -267,6 +274,7 @@ class Blockchain:
         #     'recipient': owner,
         #     'amount': MINING_REWARD
         # }
+
         reward_transaction = Transaction(
             'MINING', self.public_key, '', MINING_REWARD, 'mining')
         # Copy transaction instead of manipulating the original
