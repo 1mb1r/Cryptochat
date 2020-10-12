@@ -11,6 +11,8 @@ from utility.verification import Verification
 from block import Block
 from transaction import Transaction
 from wallet import Wallet
+from mainn import OneWindow
+
 
 # The reward we give to miners (for creating a new block)
 MINING_REWARD = 10
@@ -118,6 +120,7 @@ class Blockchain:
                               block_el.timestamp) for block_el in self.__chain
                     ]
                 ]
+
                 f.write(json.dumps(saveable_chain))
                 f.write('\n')
                 saveable_tx = [tx.__dict__ for tx in self.__open_transactions]
@@ -350,6 +353,7 @@ class Blockchain:
                     except ValueError:
                         print('Item was already removed')
         self.save_data()
+        OneWindow.search_message_in_transaction(self, block['index'], self.public_key)
         return True
 
     def resolve(self):
