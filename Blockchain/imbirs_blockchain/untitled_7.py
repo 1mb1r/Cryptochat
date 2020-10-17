@@ -39,7 +39,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.setSpacing(0)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.frame_2 = QtWidgets.QFrame(self.drop_shadow_frame)
-        self.frame_2.setMaximumSize(QtCore.QSize(16777215, 35))
+        self.frame_2.setMaximumSize(QtCore.QSize(16777215, 25))
         self.frame_2.setStyleSheet("background-color: rgb(33, 97, 160);")
         self.frame_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -66,14 +66,14 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.label = QtWidgets.QLabel(self.frame_4)
         font = QtGui.QFont()
-        font.setFamily("MS Shell Dlg 2")
-        font.setPointSize(15)
+        font.setFamily("Lucida Sans")
+        font.setPointSize(13)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
         self.label.setFont(font)
         self.label.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 15pt \"MS Shell Dlg 2\";")
+"font: 15pt \"Lucida Sans\";")
         self.label.setObjectName("label")
         self.verticalLayout_2.addWidget(self.label)
         self.horizontalLayout.addWidget(self.frame_4)
@@ -204,8 +204,11 @@ class Ui_MainWindow(object):
         self.lineEdit.setSizePolicy(sizePolicy)
         self.lineEdit.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.lineEdit.setAutoFillBackground(False)
+        self.lineEdit.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.lineEdit.setClearButtonEnabled(True)
         self.lineEdit.setStyleSheet("\n"
 "border-radius: 10px;\n"
+"font: 10pt \\\"Roboto\\\";\n"
 "padding: 0 8px;\n"
 "background: white;\n"
 "selection-background-color: darkgray;\n"
@@ -256,15 +259,14 @@ class Ui_MainWindow(object):
         self.pushButton_6.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_6.setStyleSheet("\n"
 "QPushButton{\n"
-"border: 2px solid gray;\n"
-"font: 8pt \"Vityaz\";\n"
-"border-radius: 10px;\n"
+"font: 8pt \"Roboto\";\n"
+"border-radius: 8px;\n"
 "padding: 0 8px;\n"
 "background: white;\n"
 "selection-background-color: darkgray;\n"
 "background-color: rgb(39, 92, 189);\n"
 "color: white;\n"
-"font: 11pt \"MS Shell Dlg 2\";\n"
+"font: 10pt \"Roboto\";\n"
 "}\n"
 "\n"
 "QPushButton:hover{\n"
@@ -273,15 +275,15 @@ class Ui_MainWindow(object):
 "}\n"
 "QPushButton:hover:pressed{\n"
 "border: 2px solid gray;\n"
-"font: 8pt \"Vityaz\";\n"
-"border-radius: 10px;\n"
+"font: 8pt \"Roboto\";\n"
+"border-radius: 8px;\n"
 "padding: 0 8px;\n"
 "background: gray;\n"
 "selection-background-color: darkgray;\n"
 "background-color: gray;\n"
 "\n"
 "color: white;\n"
-"font: 11pt \"MS Shell Dlg 2\";\n"
+"font: 11pt \"Roboto\";\n"
 "background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));\n"
 "background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));\n"
 "background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));\n"
@@ -323,7 +325,7 @@ class Ui_MainWindow(object):
         self.pushButton_12.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_12.setStyleSheet("QPushButton{\n"
 "background-color: rgb(255, 255, 255);\n"
-"font: 9pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 9pt \\\"Lucida Sans\\\";\n"
 "color: rgb(68, 118, 179);\n"
 "border-radius: 10px;\n"
 "}\n"
@@ -335,7 +337,7 @@ class Ui_MainWindow(object):
 "\n"
 "QPushButton:hover:pressed{\n"
 "background-color: rgb(255, 255, 255);\n"
-"font: 9pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 9pt \\\"Lucida Sans\\\";\n"
 "\n"
 "\n"
 "color: black;\n"
@@ -343,32 +345,7 @@ class Ui_MainWindow(object):
 "}")
         self.pushButton_12.setObjectName("pushButton_12")
         self.verticalLayout_23.addWidget(self.pushButton_12)
-        self.pushButton_13 = QtWidgets.QPushButton(self.page)
-        self.pushButton_13.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.pushButton_13.setStyleSheet("QPushButton{\n"
-"background-color: rgb(255, 255, 255);\n"
-"font: 9pt \\\"MS Shell Dlg 2\\\";\n"
-"\n"
-"\n"
-"color: rgb(68, 118, 179);\n"
-"border-radius: 10px;\n"
-"}\n"
-"\n"
-"QPushButton:hover{\n"
-"border: ipx solid #828282;\n"
-"color: rgb(20, 120, 250);\n"
-"}\n"
-"\n"
-"QPushButton:hover:pressed{\n"
-"background-color: rgb(255, 255, 255);\n"
-"font: 9pt \\\"MS Shell Dlg 2\\\";\n"
-"\n"
-"\n"
-"color: black;\n"
-"border-radius: 10px;\n"
-"}")
-        self.pushButton_13.setObjectName("pushButton_13")
-        self.verticalLayout_23.addWidget(self.pushButton_13)
+
         self.gridLayout_15.addLayout(self.verticalLayout_23, 1, 1, 1, 1)
         spacerItem14 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_15.addItem(spacerItem14, 1, 2, 1, 1)
@@ -423,6 +400,10 @@ class Ui_MainWindow(object):
         self.pushButton_5 = QtWidgets.QPushButton(self.frame_18)
         self.pushButton_5.setStyleSheet("color: rgb(255, 255, 255);\n"
 "border: 0px solid;")
+        icon_3 = QtGui.QIcon()
+        icon_3.addPixmap(QtGui.QPixmap("lock.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_5.setIcon(icon_3)
+        self.pushButton_5.setIconSize(QtCore.QSize(25, 25)) 
         self.pushButton_5.setObjectName("pushButton_5")
         self.horizontalLayout_9.addWidget(self.pushButton_5)
         self.horizontalLayout_4.addWidget(self.frame_18)
@@ -443,7 +424,7 @@ class Ui_MainWindow(object):
         self.textEdit_2.setMinimumSize(QtCore.QSize(100, 30))
         self.textEdit_2.setMaximumSize(QtCore.QSize(16777215, 30))
         self.textEdit_2.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"font: 11pt \"MS Shell Dlg 2\";\n"
+"font: 11pt \"Lucida Sans\";\n"
 "border-radius: 3px;\n"
 "")
         self.textEdit_2.setObjectName("textEdit_2")
@@ -478,7 +459,7 @@ class Ui_MainWindow(object):
         self.label_7.setSizePolicy(sizePolicy)
         self.label_7.setStyleSheet("border-radius: 10px;\n"
 "color: rgb(255, 255, 255);\n"
-"font: 20pt \"MS Shell Dlg 2\";")
+"font: 20pt \"Lucida Sans\";")
         self.label_7.setObjectName("label_7")
         self.horizontalLayout_6.addWidget(self.label_7)
         self.horizontalLayout_5.addWidget(self.frame_8)
@@ -537,7 +518,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_6.setSpacing(0)
         self.verticalLayout_6.setObjectName("verticalLayout_6")
         self.scrollArea_2 = QtWidgets.QScrollArea(self.frame_13)
-        self.scrollArea_2.setStyleSheet("background-color: rgb(216, 240, 255);")
+        self.scrollArea_2.setStyleSheet("background-color: rgb(216, 240, 255);\n"
+        "border: none;\n")
 
 
 
@@ -554,6 +536,7 @@ class Ui_MainWindow(object):
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
         self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 356, 694))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
+        self.scrollAreaWidgetContents_2.setStyleSheet("border: none;\n")
         
 
 
@@ -561,6 +544,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_5.setSpacing(0)
         self.verticalLayout_5.setObjectName("verticalLayout_5")
+        
         
 
 
@@ -640,12 +624,37 @@ class Ui_MainWindow(object):
         self.frame_17.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_17.setObjectName("frame_17")
         self.horizontalLayout_16 = QtWidgets.QHBoxLayout(self.frame_17)
-        self.horizontalLayout_16.setContentsMargins(40, 7, 5, 7)
+        self.horizontalLayout_16.setContentsMargins(11, 7, 5, 7)
         self.horizontalLayout_16.setSpacing(0)
         self.horizontalLayout_16.setObjectName("horizontalLayout_16")
+
+
+        self.pushButton_15 = QtWidgets.QPushButton(self.frame_17)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.pushButton_15.sizePolicy().hasHeightForWidth())
+        self.pushButton_15.setSizePolicy(sizePolicy)
+        self.pushButton_15.setStyleSheet("")
+        self.pushButton_15.setText("")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("wallet.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton_15.setIcon(icon)
+        self.pushButton_15.setIconSize(QtCore.QSize(40, 40))
+        self.pushButton_15.setCheckable(False)
+        self.pushButton_15.setAutoRepeat(False)
+        self.pushButton_15.setAutoExclusive(False)
+        self.pushButton_15.setDefault(False)
+        self.pushButton_15.setObjectName("pushButton_15")
+        self.pushButton_15.setStyleSheet("border: none;")
+        self.horizontalLayout_16.addWidget(self.pushButton_15)
+        self.horizontalLayout_16.addWidget(self.pushButton_15)
+
+
+
         self.textEdit = QtWidgets.QTextEdit(self.frame_17)
         self.textEdit.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"font: 12pt \"MS Shell Dlg 2\";\n"
+"font: 12pt \"Lucida Sans\";\n"
 "border-radius: 10px;")
         self.textEdit.setObjectName("textEdit")
 
@@ -691,6 +700,9 @@ class Ui_MainWindow(object):
         self.pushButton_4.setAutoExclusive(False)
         self.pushButton_4.setDefault(False)
         self.pushButton_4.setObjectName("pushButton_4")
+        self.pushButton_4.setStyleSheet("QPushButton{\n"
+"border: none\n"
+"}\n")
         self.horizontalLayout_15.addWidget(self.pushButton_4)
         self.horizontalLayout_14.addWidget(self.frame_20)
         self.frame_22 = QtWidgets.QFrame(self.frame_16)
@@ -731,25 +743,12 @@ class Ui_MainWindow(object):
         self.pushButton_14.setSizePolicy(sizePolicy)
         self.pushButton_14.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_14.setStyleSheet("QPushButton{\n"
-"    font: 14pt \"MS Shell Dlg 2\";\n"
+"    font: 14pt \"Lucida Sans\";\n"
 "background-color: rgb(255, 255, 255);\n"
-"font: 14pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 14pt \\\"Lucida Sans\\\";\n"
 "color: rgb(68, 118, 179);\n"
 "border-radius: 10px;\n"
-"}\n"
-"\n"
-"QPushButton:hover{\n"
-"border: ipx solid #828282;\n"
-"color: rgb(20, 120, 250);\n"
-"}\n"
-"\n"
-"QPushButton:hover:pressed{\n"
-"background-color: rgb(255, 255, 255);\n"
-"font: 9pt \\\"MS Shell Dlg 2\\\";\n"
-"\n"
-"\n"
-"color: black;\n"
-"border-radius: 10px;\n"
+
 "}")
         self.pushButton_14.setObjectName("pushButton_14")
         self.verticalLayout_25.addWidget(self.pushButton_14)
@@ -766,11 +765,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_34.setSpacing(0)
         self.verticalLayout_34.setObjectName("verticalLayout_34")
         self.label_4 = QtWidgets.QLabel(self.page_6)
-        self.label_4.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
+        self.label_4.setStyleSheet("font: 12pt \"Lucida Sans\";")
         self.label_4.setObjectName("label_4")
         self.verticalLayout_34.addWidget(self.label_4)
         self.label_5 = QtWidgets.QLabel(self.page_6)
-        self.label_5.setStyleSheet("font: 11pt \"MS Shell Dlg 2\";")
+        self.label_5.setStyleSheet("font: 11pt \"Lucida Sans\";")
         self.label_5.setObjectName("label_5")
         self.verticalLayout_34.addWidget(self.label_5)
         self.verticalLayout_33.addLayout(self.verticalLayout_34)
@@ -778,11 +777,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_35.setSpacing(0)
         self.verticalLayout_35.setObjectName("verticalLayout_35")
         self.label_10 = QtWidgets.QLabel(self.page_6)
-        self.label_10.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
+        self.label_10.setStyleSheet("font: 12pt \"Lucida Sans\";")
         self.label_10.setObjectName("label_10")
         self.verticalLayout_35.addWidget(self.label_10)
         self.label_15 = QtWidgets.QLabel(self.page_6)
-        self.label_15.setStyleSheet("font: 11pt \"MS Shell Dlg 2\";\n"
+        self.label_15.setStyleSheet("font: 11pt \"Lucida Sans\";\n"
 "  background-color: rgb(85, 255, 127);")
         self.label_15.setObjectName("label_15")
         self.verticalLayout_35.addWidget(self.label_15)
@@ -798,24 +797,12 @@ class Ui_MainWindow(object):
         self.pushButton_17.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.pushButton_17.setAutoFillBackground(False)
         self.pushButton_17.setStyleSheet("QPushButton{\n"
+"    font: 14pt \"Lucida Sans\";\n"
 "background-color: rgb(255, 255, 255);\n"
-"font: 14pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 14pt \\\"Lucida Sans\\\";\n"
 "color: rgb(68, 118, 179);\n"
 "border-radius: 10px;\n"
-"}\n"
-"\n"
-"QPushButton:hover{\n"
-"border: ipx solid #828282;\n"
-"color: rgb(20, 120, 250);\n"
-"}\n"
-"\n"
-"QPushButton:hover:pressed{\n"
-"background-color: rgb(255, 255, 255);\n"
-"font: 9pt \\\"MS Shell Dlg 2\\\";\n"
-"\n"
-"\n"
-"color: black;\n"
-"border-radius: 10px;\n"
+
 "}")
         self.pushButton_17.setObjectName("pushButton_17")
         self.verticalLayout_24.addWidget(self.pushButton_17)
@@ -831,53 +818,41 @@ class Ui_MainWindow(object):
         self.pushButton_19 = QtWidgets.QPushButton(self.page_6)
         self.pushButton_19.setStyleSheet("QPushButton{\n"
 "background-color: rgb(255, 255, 255);\n"
-"font: 11pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 11pt \\\"Lucida Sans\\\";\n"
 "color: rgb(68, 118, 179);\n"
-"border-radius: 10px;\n"
-"}\n"
-"\n"
-"QPushButton:hover{\n"
-"border: ipx solid #828282;\n"
-"color: rgb(20, 120, 250);\n"
-"}\n"
-"\n"
-"QPushButton:hover:pressed{\n"
-"background-color: rgb(255, 255, 255);\n"
-"font: 9pt \\\"MS Shell Dlg 2\\\";\n"
-"\n"
-"\n"
-"color: black;\n"
 "border-radius: 10px;\n"
 "}")
         self.pushButton_19.setObjectName("pushButton_19")
         self.verticalLayout_31.addWidget(self.pushButton_19)
-        self.pushButton_20 = QtWidgets.QPushButton(self.page_6)
-        self.pushButton_20.setStyleSheet("QPushButton{\n"
-"background-color: rgb(255, 255, 255);\n"
-"font: 11pt \\\"MS Shell Dlg 2\\\";\n"
-"color: rgb(68, 118, 179);\n"
+     
+
+        self.line_coin = QtWidgets.QLineEdit(self.page_6)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(2)
+        sizePolicy.setVerticalStretch(1)
+        sizePolicy.setHeightForWidth(self.line_coin.sizePolicy().hasHeightForWidth())
+        self.line_coin.setSizePolicy(sizePolicy)
+        self.line_coin.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.line_coin.setAutoFillBackground(False)
+        self.line_coin.setStyleSheet("\n"
 "border-radius: 10px;\n"
-"}\n"
-"\n"
-"QPushButton:hover{\n"
-"border: ipx solid #828282;\n"
-"color: rgb(20, 120, 250);\n"
-"}\n"
-"\n"
-"QPushButton:hover:pressed{\n"
-"background-color: rgb(255, 255, 255);\n"
-"font: 9pt \\\"MS Shell Dlg 2\\\";\n"
-"\n"
-"\n"
-"color: black;\n"
-"border-radius: 10px;\n"
-"}")
-        self.pushButton_20.setObjectName("pushButton_20")
-        self.verticalLayout_31.addWidget(self.pushButton_20)
+"padding: 0 8px;\n"
+"background: white;\n"
+"selection-background-color: darkgray;\n"
+"")
+       # self.line_coin.setText('должен быть кошелек отправляющего')
+        self.line_coin.setPlaceholderText(" amount. . .")
+        self.line_coin.setObjectName("line_coin")
+
+
+
+
+
+        self.verticalLayout_31.addWidget(self.line_coin)
         self.pushButton_21 = QtWidgets.QPushButton(self.page_6)
         self.pushButton_21.setStyleSheet("QPushButton{\n"
 "background-color: rgb(255, 255, 255);\n"
-"font: 11pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 11pt \\\"Lucida Sans\\\";\n"
 "color: rgb(68, 118, 179);\n"
 "border-radius: 10px;\n"
 "}\n"
@@ -889,7 +864,7 @@ class Ui_MainWindow(object):
 "\n"
 "QPushButton:hover:pressed{\n"
 "background-color: rgb(255, 255, 255);\n"
-"font: 9pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 9pt \\\"Lucida Sans\\\";\n"
 "\n"
 "\n"
 "color: black;\n"
@@ -942,9 +917,9 @@ class Ui_MainWindow(object):
         self.pushButton_9.setSizePolicy(sizePolicy)
         self.pushButton_9.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_9.setStyleSheet("QPushButton{\n"
-"    font: 10pt \"MS Shell Dlg 2\";\n"
+"    font: 10pt \"Lucida Sans\";\n"
 "background-color: rgb(255, 255, 255);\n"
-"font: 10pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 10pt \\\"Lucida Sans\\\";\n"
 "color: rgb(68, 118, 179);\n"
 "border-radius: 10px;\n"
 "}\n"
@@ -956,7 +931,7 @@ class Ui_MainWindow(object):
 "\n"
 "QPushButton:hover:pressed{\n"
 "background-color: rgb(255, 255, 255);\n"
-"font: 9pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 9pt \\\"Lucida Sans\\\";\n"
 "\n"
 "\n"
 "color: black;\n"
@@ -972,9 +947,9 @@ class Ui_MainWindow(object):
         self.pushButton_7.setSizePolicy(sizePolicy)
         self.pushButton_7.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_7.setStyleSheet("QPushButton{\n"
-"    font: 10pt \"MS Shell Dlg 2\";\n"
+"    font: 10pt \"Lucida Sans\";\n"
 "background-color: rgb(255, 255, 255);\n"
-"font: 10pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 10pt \\\"Lucida Sans\\\";\n"
 "color: rgb(68, 118, 179);\n"
 "border-radius: 10px;\n"
 "}\n"
@@ -986,7 +961,7 @@ class Ui_MainWindow(object):
 "\n"
 "QPushButton:hover:pressed{\n"
 "background-color: rgb(255, 255, 255);\n"
-"font: 9pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 9pt \\\"Lucida Sans\\\";\n"
 "\n"
 "\n"
 "color: black;\n"
@@ -998,7 +973,7 @@ class Ui_MainWindow(object):
         self.pushButton_8.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_8.setStyleSheet("QPushButton{\n"
 "background-color: rgb(255, 255, 255);\n"
-"font: 10pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 10pt \\\"Lucida Sans\\\";\n"
 "color: rgb(68, 118, 179);\n"
 "border-radius: 10px;\n"
 "}\n"
@@ -1010,7 +985,7 @@ class Ui_MainWindow(object):
 "\n"
 "QPushButton:hover:pressed{\n"
 "background-color: rgb(255, 255, 255);\n"
-"font: 9pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 9pt \\\"Lucida Sans\\\";\n"
 "\n"
 "\n"
 "color: black;\n"
@@ -1034,14 +1009,14 @@ class Ui_MainWindow(object):
         self.verticalLayout_12.setObjectName("verticalLayout_12")
         self.checkBox = QtWidgets.QCheckBox(self.page_7)
         self.checkBox.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"font: 10pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 10pt \\\"Lucida Sans\\\";\n"
 "color: rgb(68, 118, 179);\n"
 "border-radius: 10px;")
         self.checkBox.setObjectName("checkBox")
         self.verticalLayout_12.addWidget(self.checkBox)
         self.label_6 = QtWidgets.QLabel(self.page_7)
         self.label_6.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"font: 10pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 10pt \\\"Lucida Sans\\\";\n"
 "color: rgb(68, 118, 179);\n"
 "border-radius: 10px;")
         self.label_6.setObjectName("label_6")
@@ -1052,14 +1027,14 @@ class Ui_MainWindow(object):
         self.verticalLayout_13.setObjectName("verticalLayout_13")
         self.checkBox_2 = QtWidgets.QCheckBox(self.page_7)
         self.checkBox_2.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"font: 10pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 10pt \\\"Lucida Sans\\\";\n"
 "color: rgb(68, 118, 179);\n"
 "border-radius: 10px;")
         self.checkBox_2.setObjectName("checkBox_2")
         self.verticalLayout_13.addWidget(self.checkBox_2)
         self.label_9 = QtWidgets.QLabel(self.page_7)
         self.label_9.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"font: 10pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 10pt \\\"Lucida Sans\\\";\n"
 "color: rgb(68, 118, 179);\n"
 "border-radius: 10px;")
         self.label_9.setObjectName("label_9")
@@ -1070,7 +1045,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_14.setObjectName("verticalLayout_14")
         self.checkBox_3 = QtWidgets.QCheckBox(self.page_7)
         self.checkBox_3.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"font: 10pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 10pt \\\"Lucida Sans\\\";\n"
 "color: rgb(68, 118, 179);\n"
 "border-radius: 10px;\n"
 "")
@@ -1078,7 +1053,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_14.addWidget(self.checkBox_3)
         self.label_11 = QtWidgets.QLabel(self.page_7)
         self.label_11.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"font: 10pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 10pt \\\"Lucida Sans\\\";\n"
 "color: rgb(68, 118, 179);\n"
 "border-radius: 10px;")
         self.label_11.setObjectName("label_11")
@@ -1098,7 +1073,7 @@ class Ui_MainWindow(object):
         self.pushButton_10.setAutoFillBackground(False)
         self.pushButton_10.setStyleSheet("QPushButton{\n"
 "background-color: rgb(255, 255, 255);\n"
-"font: 10pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 10pt \\\"Lucida Sans\\\";\n"
 "color: rgb(68, 118, 179);\n"
 "border-radius: 10px;\n"
 "}\n"
@@ -1110,7 +1085,7 @@ class Ui_MainWindow(object):
 "\n"
 "QPushButton:hover:pressed{\n"
 "background-color: rgb(255, 255, 255);\n"
-"font: 9pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 9pt \\\"Lucida Sans\\\";\n"
 "\n"
 "\n"
 "color: black;\n"
@@ -1122,7 +1097,7 @@ class Ui_MainWindow(object):
         self.pushButton_11.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_11.setStyleSheet("QPushButton{\n"
 "background-color: rgb(255, 255, 255);\n"
-"font: 11pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 11pt \\\"Lucida Sans\\\";\n"
 "color: rgb(68, 118, 179);\n"
 "border-radius: 10px;\n"
 "}\n"
@@ -1134,7 +1109,7 @@ class Ui_MainWindow(object):
 "\n"
 "QPushButton:hover:pressed{\n"
 "background-color: rgb(255, 255, 255);\n"
-"font: 9pt \\\"MS Shell Dlg 2\\\";\n"
+"font: 9pt \\\"Lucida Sans\\\";\n"
 "\n"
 "\n"
 "color: black;\n"
@@ -1257,18 +1232,18 @@ class Ui_MainWindow(object):
 "}")
         self.btn_page_2.setObjectName("btn_page_2")
         self.verticalLayout_27.addWidget(self.btn_page_2)
-        self.btn_page_3 = QtWidgets.QPushButton(self.frame_top_menus)
-        self.btn_page_3.setMinimumSize(QtCore.QSize(0, 40))
-        self.btn_page_3.setStyleSheet("QPushButton {\n"
-"  color: rgb(255, 255, 255);\n"
-"  background-color: rgb(33, 97, 160);\n"
-"  border: 0px solid;\n"
-"}\n"
-"QPushButton:hover {\n"
-"  background-color: rgb(85, 170, 255);\n"
-"}")
-        self.btn_page_3.setObjectName("btn_page_3")
-        self.verticalLayout_27.addWidget(self.btn_page_3)
+     #   self.btn_page_3 = QtWidgets.QPushButton(self.frame_top_menus)
+     #   self.btn_page_3.setMinimumSize(QtCore.QSize(0, 40))
+     #  self.btn_page_3.setStyleSheet("QPushButton {\n"
+#"  color: rgb(255, 255, 255);\n"
+#"  background-color: rgb(33, 97, 160);\n"
+#"  border: 0px solid;\n"
+#"}\n"
+#"QPushButton:hover {\n"
+#"  background-color: rgb(85, 170, 255);\n"
+#"}")
+#        self.btn_page_3.setObjectName("btn_page_3")
+#        self.verticalLayout_27.addWidget(self.btn_page_3)
 
         self.btn_page_4 = QtWidgets.QPushButton(self.frame_top_menus)
         self.btn_page_4.setMinimumSize(QtCore.QSize(0, 40))
@@ -1306,21 +1281,20 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "VerBium"))
         self.lineEdit.setPlaceholderText(_translate("MainWindow", " Enter your local password. . ."))
         self.pushButton_6.setText(_translate("MainWindow", "LOGIN"))
-        self.pushButton_12.setText(_translate("MainWindow", "Or create a new anonymous addres:"))
-        self.pushButton_13.setText(_translate("MainWindow", "C̲r̲e̲a̲t̲e̲ ̲n̲e̲w̲"))
-        self.pushButton_5.setText(_translate("MainWindow", "main_menu"))
+        self.pushButton_12.setText(_translate("MainWindow", "Or create a new anonymous addres"))
+        
         self.textEdit_2.setPlaceholderText(_translate("MainWindow", " Search"))
-        self.label_7.setText(_translate("MainWindow", " Hello there!"))
+       
         self.textEdit.setPlaceholderText(_translate("MainWindow", "Select_user. . ."))
         self.pushButton_14.setText(_translate("MainWindow", "Данные кошелька           "))
         self.label_4.setText(_translate("MainWindow", "VERBIUM КОШЕЛЕК:"))
         self.label_5.setText(_translate("MainWindow", "gvunghsbkvngaeukvkare"))
         self.label_10.setText(_translate("MainWindow", "БАЛАНС:"))
         self.label_15.setText(_translate("MainWindow", "2837549"))
-        self.pushButton_17.setText(_translate("MainWindow", "Действия:                          "))
-        self.pushButton_19.setText(_translate("MainWindow", "Отправить VER                            "))
-        self.pushButton_20.setText(_translate("MainWindow", "Купить и продать токены             "))
-        self.pushButton_21.setText(_translate("MainWindow", "Бесплатные токены                     "))
+        self.pushButton_17.setText(_translate("MainWindow", "Отправить  пользователю:                          "))
+        self.pushButton_19.setText(_translate("MainWindow", "по умолчанию должен быть кошелек получающего        "))
+     #   self.pushButton_20.setText(_translate("MainWindow", "Купить и продать токены             "))
+        self.pushButton_21.setText(_translate("MainWindow", "Отправить "))
         self.pushButton_9.setText(_translate("MainWindow", "Общая информация           "))
         self.pushButton_7.setText(_translate("MainWindow", " Безопасность и вход           "))
         self.pushButton_8.setText(_translate("MainWindow", "Уведомления:                    "))
@@ -1330,12 +1304,12 @@ class Ui_MainWindow(object):
         self.label_9.setText(_translate("MainWindow", "Показывает счетчик сообщений в заголовке новой вкладке"))
         self.checkBox_3.setText(_translate("MainWindow", "Push-уведомления"))
         self.label_11.setText(_translate("MainWindow", "Уведомления на рабочем столе. Требуется разрешение"))
-        self.pushButton_10.setText(_translate("MainWindow", "Действия:                          "))
+        self.pushButton_10.setText(_translate("MainWindow", "Отправить:                          "))
         self.pushButton_11.setText(_translate("MainWindow", "Выход             "))
-        self.btn_page_1.setText(_translate("MainWindow", "chat"))
-        self.btn_page_2.setText(_translate("MainWindow", "settings"))
-        self.btn_page_3.setText(_translate("MainWindow", "send"))
-        self.btn_page_4.setText(_translate("MainWindow", "Add_New"))
+        self.btn_page_1.setText(_translate("MainWindow", "Сообщения"))
+        self.btn_page_2.setText(_translate("MainWindow", "Настройки"))
+     #   self.btn_page_3.setText(_translate("MainWindow", "send"))
+        self.btn_page_4.setText(_translate("MainWindow", "Добавить\nконтакт"))
 
 
 if __name__ == "__main__":

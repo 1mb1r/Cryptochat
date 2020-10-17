@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 
 from wallet import Wallet
-from blockchain import Blockchain
+from blockchain import *
 
 app = Flask(__name__)
 CORS(app)
@@ -20,13 +20,13 @@ def get_network_ui():
 
 @app.route('/wallet', methods=['POST'])
 def create_keys():
-    wallet.create_keys()
-    if wallet.save_keys():
+    Wallet.create_keys()
+    if Wallet.save_keys():
         global blockchain
-        blockchain = Blockchain(wallet.public_key, port)
+        blockchain = Blockchain(Wallet.public_key, port)
         response = {
-            'public_key': wallet.public_key,
-            'private_key': wallet.private_key,
+            'public_key': Wallet.public_key,
+            'private_key': Wallet.private_key,
             'funds': blockchain.get_balance()
         }
         return jsonify(response), 201
@@ -39,12 +39,12 @@ def create_keys():
 
 @app.route('/wallet', methods=['GET'])
 def load_keys():
-    if wallet.load_keys():
+    if Wallet.load_keys(self):
         global blockchain
-        blockchain = Blockchain(wallet.public_key, port)
+        blockchain = Blockchain(Wallet.public_key, port)
         response = {
-            'public_key': wallet.public_key,
-            'private_key': wallet.private_key,
+            'public_key': Wallet.public_key,
+            'private_key': Wallet.private_key,
             'funds': blockchain.get_balance()
         }
         return jsonify(response), 201
@@ -67,7 +67,7 @@ def get_balance():
     else:
         response = {
             'messsage': 'Loading balance failed.',
-            'wallet_set_up': wallet.public_key is not None
+            'wallet_set_up': Wallet.public_key is not None
         }
         return jsonify(response), 500
 
@@ -98,7 +98,7 @@ def broadcast_transaction():
                 'amount': values['amount'],
                 'msg': values['msg'],
                 'signature': values['signature']
-                            }
+            }
         }
         return jsonify(response), 201
     else:
@@ -138,7 +138,7 @@ def broadcast_block():
 
 @app.route('/transaction', methods=['POST'])
 def add_transaction():
-    if wallet.public_key is None:
+    if Wallet.public_key is None:
         response = {
             'message': 'No wallet set up.'
         }
@@ -158,14 +158,14 @@ def add_transaction():
     recipient = values['recipient']
     amount = values['amount']
     msg = values['msg']
-    signature = wallet.sign_transaction(wallet.public_key, recipient, amount, msg)
+    signature = Wallet.sign_transaction(Wallet.public_key, recipient, amount, msg)
     success = blockchain.add_transaction(
-        recipient, wallet.public_key, signature, amount, msg)
+        recipient, Wallet.public_key, signature, amount, msg)
     if success:
         response = {
             'message': 'Successfully added transaction.',
             'transaction': {
-                'sender': wallet.public_key,
+                'sender': Wallet.public_key,
                 'recipient': recipient,
                 'amount': amount,
                 'msg': msg,
@@ -200,7 +200,7 @@ def mine():
     else:
         response = {
             'message': 'Adding a block failed.',
-            'wallet_set_up': wallet.public_key is not None
+            'wallet_set_up': Wallet.public_key is not None
         }
         return jsonify(response), 500
 
@@ -278,7 +278,7 @@ def get_nodes():
     return jsonify(response), 200
 
 
-if __name__ == '__main__':
+def start():
     from argparse import ArgumentParser
     parser = ArgumentParser()
     parser.add_argument('-p', '--port', type=int, default=5000)
@@ -287,3 +287,6 @@ if __name__ == '__main__':
     wallet = Wallet(port)
     blockchain = Blockchain(wallet.public_key, port)
     app.run(host='0.0.0.0', port=port)
+
+if __name__ == "__main__":
+    start()
