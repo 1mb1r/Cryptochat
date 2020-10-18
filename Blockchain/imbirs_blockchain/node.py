@@ -7,7 +7,6 @@ from blockchain import *
 app = Flask(__name__)
 CORS(app)
 
-
 @app.route('/', methods=['GET'])
 def get_node_ui():
     return send_from_directory('ui', 'node.html')
@@ -20,13 +19,13 @@ def get_network_ui():
 
 @app.route('/wallet', methods=['POST'])
 def create_keys():
-    Wallet.create_keys()
-    if Wallet.save_keys():
-        global blockchain
-        blockchain = Blockchain(Wallet.public_key, port)
+    global wallet, port, blockchain
+    wallet.create_keys()
+    if wallet.save_keys():
+        blockchain = Blockchain(wallet.public_key, port)
         response = {
-            'public_key': Wallet.public_key,
-            'private_key': Wallet.private_key,
+            'public_key': wallet.public_key,
+            'private_key': wallet.private_key,
             'funds': blockchain.get_balance()
         }
         return jsonify(response), 201
@@ -39,12 +38,12 @@ def create_keys():
 
 @app.route('/wallet', methods=['GET'])
 def load_keys():
-    if Wallet.load_keys(self):
-        global blockchain
-        blockchain = Blockchain(Wallet.public_key, port)
+    global port, wallet, blockchain
+    if wallet.load_keys():
+        blockchain = Blockchain(wallet.public_key, port)
         response = {
-            'public_key': Wallet.public_key,
-            'private_key': Wallet.private_key,
+            'public_key': wallet.public_key,
+            'private_key': wallet.private_key,
             'funds': blockchain.get_balance()
         }
         return jsonify(response), 201
@@ -57,6 +56,7 @@ def load_keys():
 
 @app.route('/balance', methods=['GET'])
 def get_balance():
+    global port, wallet, blockchain
     balance = blockchain.get_balance()
     if balance is not None:
         response = {
@@ -67,13 +67,14 @@ def get_balance():
     else:
         response = {
             'messsage': 'Loading balance failed.',
-            'wallet_set_up': Wallet.public_key is not None
+            'wallet_set_up': wallet.public_key is not None
         }
         return jsonify(response), 500
 
 
 @app.route('/broadcast-transaction', methods=['POST'])
 def broadcast_transaction():
+    global port, wallet, blockchain
     values = request.get_json()
     if not values:
         response = {'message': 'No data found.'}
@@ -110,6 +111,7 @@ def broadcast_transaction():
 
 @app.route('/broadcast-block', methods=['POST'])
 def broadcast_block():
+    global port, wallet, blockchain
     values = request.get_json()
     if not values:
         response = {'message': 'No data found.'}
@@ -138,7 +140,8 @@ def broadcast_block():
 
 @app.route('/transaction', methods=['POST'])
 def add_transaction():
-    if Wallet.public_key is None:
+    global port, wallet, blockchain
+    if wallet.public_key is None:
         response = {
             'message': 'No wallet set up.'
         }
@@ -158,14 +161,14 @@ def add_transaction():
     recipient = values['recipient']
     amount = values['amount']
     msg = values['msg']
-    signature = Wallet.sign_transaction(Wallet.public_key, recipient, amount, msg)
+    signature = wallet.sign_transaction(wallet.public_key, recipient, amount, msg)
     success = blockchain.add_transaction(
-        recipient, Wallet.public_key, signature, amount, msg)
+        recipient, wallet.public_key, signature, amount, msg)
     if success:
         response = {
             'message': 'Successfully added transaction.',
             'transaction': {
-                'sender': Wallet.public_key,
+                'sender': wallet.public_key,
                 'recipient': recipient,
                 'amount': amount,
                 'msg': msg,
@@ -183,6 +186,7 @@ def add_transaction():
 
 @app.route('/mine', methods=['POST'])
 def mine():
+    global port, wallet, blockchain
     if blockchain.resolve_conflicts:
         response = {'message': 'Resolve conflicts first, block not added!'}
         return jsonify(response), 409
@@ -200,13 +204,14 @@ def mine():
     else:
         response = {
             'message': 'Adding a block failed.',
-            'wallet_set_up': Wallet.public_key is not None
+            'wallet_set_up': wallet.public_key is not None
         }
         return jsonify(response), 500
 
 
 @app.route('/resolve-conflicts', methods=['POST'])
 def resolve_conflicts():
+    global port, wallet, blockchain
     replaced = blockchain.resolve()
     if replaced:
         response = {'message': 'Chain was replaced!'}
@@ -217,6 +222,7 @@ def resolve_conflicts():
 
 @app.route('/transactions', methods=['GET'])
 def get_open_transaction():
+    global port, wallet, blockchain
     transactions = blockchain.get_open_transactions()
     dict_transactions = [tx.__dict__ for tx in transactions]
     return jsonify(dict_transactions), 200
@@ -224,6 +230,7 @@ def get_open_transaction():
 
 @app.route('/chain', methods=['GET'])
 def get_chain():
+    global port, wallet, blockchain
     chain_snapshot = blockchain.chain
     dict_chain = [block.__dict__.copy() for block in chain_snapshot]
     for dict_block in dict_chain:
@@ -234,6 +241,7 @@ def get_chain():
 
 @app.route('/node', methods=['POST'])
 def add_node():
+    global port, wallet, blockchain
     values = request.get_json()
     if not values:
         response = {
@@ -256,6 +264,7 @@ def add_node():
 
 @app.route('/node/<node_url>', methods=['DELETE'])
 def remove_node(node_url):
+    global port, wallet, blockchain
     if node_url == '' or node_url is None:
         response = {
             'message': 'No node found.'
@@ -271,14 +280,15 @@ def remove_node(node_url):
 
 @app.route('/nodes', methods=['GET'])
 def get_nodes():
+    global port, wallet, blockchain
     nodes = blockchain.get_peer_nodes()
     response = {
         'all_nodes': nodes
     }
     return jsonify(response), 200
 
-
 def start():
+    global blockchain, wallet, port
     from argparse import ArgumentParser
     parser = ArgumentParser()
     parser.add_argument('-p', '--port', type=int, default=5000)
