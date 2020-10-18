@@ -17,6 +17,9 @@ def get_network_ui():
     return send_from_directory('ui', 'network.html')
 
 
+def create_keys_2():
+    create_keys()
+
 @app.route('/wallet', methods=['POST'])
 def create_keys():
     global wallet, port, blockchain
@@ -36,6 +39,15 @@ def create_keys():
         return jsonify(response), 500
 
 
+def load_keys_2():
+    load_keys()
+
+
+def open_key():
+    global port, wallet, blockchain
+    return wallet.public_key
+
+
 @app.route('/wallet', methods=['GET'])
 def load_keys():
     global port, wallet, blockchain
@@ -52,6 +64,11 @@ def load_keys():
             'message': 'Loading the keys failed.'
         }
         return jsonify(response), 500
+
+
+def get_balance_2():
+    balance = blockchain.get_balance()
+    return balance
 
 
 @app.route('/balance', methods=['GET'])

@@ -3,6 +3,7 @@ from untitled_7 import Ui_MainWindow
 import json
 import subprocess
 import datetime
+import requests
 
 from PyQt5 import QtWidgets, QtGui
 from PyQt5 import QtCore
@@ -13,10 +14,8 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from ui_functions import *
 import node
+from node import *
 
-
-ind = 3
-pub_key = "30819f300d06092a864886f70d010101050003818d0030818902818100d61942583508341858b93d85957a1401855008d5c0e0d1b8fe0c5918ed0129b5b4c4c5ea4c9c0aaebbdb129e9ad35b50a4e579be57b713b0f6d276a18b15252b6db34cebc704cb147328aabf8ae4dbd8bd68be3c6f073cc012d1c0d40aaab1a923f7182bb371a0fff7caa96ce7facae74017b07b397bdc836bedf29c56cd986f0203010001"
 
 
 class OneWindow(QtWidgets.QMainWindow):
@@ -29,6 +28,10 @@ class OneWindow(QtWidgets.QMainWindow):
         self.ui.pushButton_5.clicked.connect(self.lock_chat)
         self.ui.pushButton_6.clicked.connect(self.check_user)
         text = str(self.ui.label_7.text())
+        balance = 0
+        self.ui.label_15.setText(str(balance))
+        pub_key = "00000"
+        self.ui.label_5.setText(pub_key)
         # self.ui.pushButton_4.clicked.connect(self.send_message(str(text)))    (lambda ch, text=text :
         # self.change_chat(text))
         self.ui.pushButton_4.clicked.connect(lambda ch, text=text: self.send_message(text))
@@ -91,7 +94,9 @@ class OneWindow(QtWidgets.QMainWindow):
 
 
     def new_wallet(self):
-        node.create_keys
+        requests.post('http://localhost:5000/wallet')
+        balance = node.get_balance_2
+        self.ui.label_15.setText(str(balance))
 
 
     def send_coin(self):
@@ -387,6 +392,11 @@ class OneWindow(QtWidgets.QMainWindow):
         if (password == password_of_user):
             self.ui.stackedWidget.setCurrentWidget(self.ui.page_2)
             self.ui.lineEdit.setText('')
+            with app.app_context():
+                node.load_keys_2()
+            balance = node.get_balance_2()
+            self.ui.label_15.setText(str(balance))
+            self.ui.label_5.setText(str(node.open_key()))
         else:
             self.ui.lineEdit.setText('')
             self.ui.lineEdit.repaint()

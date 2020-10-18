@@ -199,8 +199,8 @@ class Blockchain:
             tx_recipient,
             0
         )
-        # Return the total balance
-        return amount_received - amount_sent
+        balance = amount_received - amount_sent
+        return balance
 
     def get_last_blockchain_value(self):
         """ Returns the last value of the current blockchain. """
