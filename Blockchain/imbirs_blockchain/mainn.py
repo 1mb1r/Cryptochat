@@ -12,7 +12,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from ui_functions import *
-from blockchain import *
+import node
 
 
 ind = 3
@@ -66,7 +66,7 @@ class OneWindow(QtWidgets.QMainWindow):
         self.ui.textEdit.setDisabled(True)
         self.ui.pushButton_4.setEnabled(False)
         self.ui.pushButton_15.setEnabled(False)
-
+        self.ui.pushButton_12.clicked.connect(self.new_wallet)
         self.ui.pushButton_15.clicked.connect(self.send_coin)
 
         def moveWindow(event):
@@ -88,6 +88,11 @@ class OneWindow(QtWidgets.QMainWindow):
 
     def mousePressEvent(self, event):
         self.dragPos = event.globalPos()
+
+
+    def new_wallet(self):
+        node.create_keys
+
 
     def send_coin(self):
 

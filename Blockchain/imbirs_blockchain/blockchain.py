@@ -11,7 +11,7 @@ from utility.verification import Verification
 from block import Block
 from transaction import Transaction
 from wallet import Wallet
-from mainn import *
+
 
 # The reward we give to miners (for creating a new block)
 MINING_REWARD = 10
