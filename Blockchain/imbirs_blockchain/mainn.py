@@ -8,14 +8,13 @@ import requests
 from PyQt5 import QtWidgets, QtGui
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
-
+from wallet import Wallet
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from ui_functions import *
 import node
 from node import *
-
 
 
 class OneWindow(QtWidgets.QMainWindow):
@@ -92,12 +91,10 @@ class OneWindow(QtWidgets.QMainWindow):
     def mousePressEvent(self, event):
         self.dragPos = event.globalPos()
 
-
     def new_wallet(self):
         requests.post('http://localhost:5000/wallet')
         balance = node.get_balance_2
         self.ui.label_15.setText(str(balance))
-
 
     def send_coin(self):
 
@@ -218,18 +215,17 @@ class OneWindow(QtWidgets.QMainWindow):
                 for j in templates_7:
                     if i["ID_purse"] == j[
                         "ID_purse"]:  # для этого пользователя из первого перебираем пользователей и находим блоки связанные с ним во 2 джисоне
-                        message = "ВОЗЬМИ ИЗ БЛОКА"
+                        message = j['message']
+                        time = j['time']
                         if j["status"] == "send":
 
-                            self.create_right_message(message)  # должно выводиться НАШЕ сообщение СПРАВА
+                            self.create_right_message(message, time)  # должно выводиться НАШЕ сообщение СПРАВА
 
                         else:
 
-                            self.create_left_message(message)  # должно выводиться СООБЩЕНИЕ СОБЕСЕДНИКА СЛЕВО
+                            self.create_left_message(message, time)  # должно выводиться СООБЩЕНИЕ СОБЕСЕДНИКА СЛЕВО
 
-    def create_right_message(self, message):
-        now = datetime.datetime.now()
-        time = now.strftime("%H:%M")
+    def create_right_message(self, message, time):
         #       print("в этом месте вставить функцию для вывода старых сообщений пользователя " + i['name'])
         #      mail = "в этом месте вставить функцию для вывода старых сообщений пользователя " + i['name']
         self.widget_5 = QtWidgets.QWidget(self.ui.scrollAreaWidgetContents)
@@ -247,7 +243,7 @@ class OneWindow(QtWidgets.QMainWindow):
                                     "color: rgb(74, 128, 255);\n"
                                     "")
         self.label_13.setObjectName("label_13")
-        self.label_13.setText("You  " + time)  # user_name +
+        self.label_13.setText("You  " + str(time))  # user_name +
         self.label_13.setStyleSheet("border: none;\n")
         self.verticalLayout_28.addWidget(self.label_13)
         self.textBrowser_5 = QtWidgets.QTextBrowser(self.widget_5)
@@ -264,15 +260,13 @@ class OneWindow(QtWidgets.QMainWindow):
         self.verticalLayout_28.addWidget(self.textBrowser_5)
         self.ui.verticalLayout_41.addWidget(self.widget_5)
 
-    def create_left_message(self, message):
-        now = datetime.datetime.now()
-        time = now.strftime("%H:%M")
+    def create_left_message(self, message, time):
         #       print("в этом месте вставить функцию для вывода старых сообщений пользователя " + i['name'])
         #      mail = "в этом месте вставить функцию для вывода старых сообщений пользователя " + i['name']
         self.widget_5 = QtWidgets.QWidget(self.ui.scrollAreaWidgetContents)
         self.widget_5.setMinimumSize(QtCore.QSize(300, 90))
         self.widget_5.setMaximumSize(QtCore.QSize(300, 100))
-        self.widget_5.setLayoutDirection(QtCore.Qt.RightToRight)  # ПАРАМЕТР СТОРОНЫ СООБЩЕНИЯ
+        self.widget_5.setLayoutDirection(QtCore.Qt.LeftToRight)  # ПАРАМЕТР СТОРОНЫ СООБЩЕНИЯ
         self.widget_5.setStyleSheet("background-color: rgb(170, 255, 255);")
         self.widget_5.setObjectName("widget_5")
         self.verticalLayout_28 = QtWidgets.QVBoxLayout(self.widget_5)
@@ -283,7 +277,7 @@ class OneWindow(QtWidgets.QMainWindow):
                                     "color: rgb(74, 128, 255);\n"
                                     "")
         self.label_13.setObjectName("label_13")
-        self.label_13.setText("you   in  " + time)  # user_name +
+        self.label_13.setText(str(time))  # user_name +
         self.verticalLayout_28.addWidget(self.label_13)
         self.textBrowser_5 = QtWidgets.QTextBrowser(self.widget_5)
         self.textBrowser_5.setObjectName("textBrowser_5")
@@ -312,7 +306,7 @@ class OneWindow(QtWidgets.QMainWindow):
         templates.append(to_json)  # ДОПОЛНЯЕМ
 
         with open('one.json', 'w') as f:
-            json.dump(templates, f)  # ВПИСЫВАЕМ
+            json.dump(templates, f, ensure_ascii=False)  # ВПИСЫВАЕМ
         #    jooo = templates['user']
 
         self.rewrite_users()
@@ -321,51 +315,77 @@ class OneWindow(QtWidgets.QMainWindow):
         self.ui.ввод_имени_польз.setText("")
         self.ui.lineEdit_кошелька.setText("")  # чищу поля ввода
 
+    def checking(self, first, second):
+        return first == second
 
-    #   self.pushButton_30.clicked.connect(self.change_chat)
-    def search_message_in_transaction(self, index, our_pub_key):
+    def load_messages(self, our_pub_key):
         with open('blockchain-5000.txt', mode='r') as f:
             file_content = f.readlines()
             blockchain = json.loads(file_content[0][:-1])
             for block in blockchain:
-                if block['index'] == index:
-                    for tx in block['transactions']:
-                        if tx['sender'] == our_pub_key:
-                            return self.add_received_message_to_json(index, tx['recipient'], 'sender')
-                        if tx['recipient'] == our_pub_key:
-                            return self.add_received_message_to_json(index, tx['sender'], 'recipient')
+                for tx in block['transactions']:
+                    if tx['recipient'] == our_pub_key:
+                        with open('two.json') as f:
+                            templates_5 = json.load(f)
+                            checker = 0
+                        for i in templates_5:
+                            check = self.checking(i['signature'], tx['signature'])
+                            if check:
+                                checker = checker + 1
+                        if checker == 0:
+                            self.add_received_message_to_json(tx['msg'], tx['sender'], "recipient", block['timestamp'], tx['signature'])
+                    elif tx['sender'] == our_pub_key:
+                        with open('two.json') as f:
+                            templates_5 = json.load(f)
+                            checker = 0
+                        for i in templates_5:
+                            check = self.checking(i['signature'], tx['signature'])
+                            if check == True:
+                                checker = checker + 1
+                        if checker == 0:
+                            self.add_received_message_to_json(tx['msg'], tx['recipient'], "sender", block['timestamp'],  tx['signature'])
 
-    def add_received_message_to_json(self, index, pub_key, status):
-        text_block = "2342421322"  # к примеру это ID кошелька
-        # ПЕРЕДАШЬ ЕСЛИ НУЖНО В ФУНКЦИЮ НЕОБХОДИМЫЕ ПАРАМЕТРЫ КЛЮЧА КОНТАКТА ХЗ
-        with open('one.json') as f:
-            templates_5 = json.load(f)
-        for i in templates_5:
-            #        print (i['name'])
-            if text_block == i['ID_purse']:  # проверка на существование этого контакта
-                pass  # добовлять в список юзера не надо
+    # #   self.pushButton_30.clicked.connect(self.change_chat)
+    def load_contacts(self, our_pub_key):
+        with open('blockchain-5000.txt', mode='r') as f:
+            file_content = f.readlines()
+            blockchain = json.loads(file_content[0][:-1])
+            for block in blockchain:
+                for tx in block['transactions']:
+                    if tx['recipient'] == our_pub_key:
+                        with open('one.json') as f:
+                            templates_5 = json.load(f)
+                            checker = 0
+                        for i in templates_5:
+                            check = self.checking(i['ID_purse'], tx['sender'])
+                            if check == True:
+                                checker = checker + 1
+                        if checker == 0:
+                            self.Add_New_user_2(tx['sender'])
+                    elif tx['sender'] == our_pub_key:
+                        with open('one.json') as f:
+                            templates_5 = json.load(f)
+                            checker = 0
+                        for i in templates_5:
+                            check = self.checking(i['ID_purse'], tx['recipient'])
+                            if check == True:
+                                checker = checker + 1
+                        if checker == 0:
+                            self.Add_New_user_2(tx['recipient'])
 
-            else:
-                self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_8)
-                self.ui.label_статус.setText("Вам пишет новый юзер. Дайте ему имя")
-                self.ui.lineEdit_кошелька.setDisabled(True)
-                self.ui.кнопка_добавл.clicked.connect(self.Add_New_user_2)
-        # КОШЕЛЕК, БРАТЬ ИЗ БЛОКА, так же как и ID блока
-        to_json_message_2 = {"status": status, "ID_purse": pub_key, "name_of-block": index}
-
-        #     print(to_json_message)
+    def add_received_message_to_json(self, msg, pub_key, status, time, signature):
+        to_json_message_2 = {"status": status, "ID_purse": pub_key, "message": msg, "time": time, "signature": signature}
         with open('two.json') as f:
             templates_6 = json.load(f)  # СЧИТЫВАЕМ
-        templates_6.append(to_json_message_2)  # ДОПОЛНЯЕМ
-
+            templates_6.append(to_json_message_2)  # ДОПОЛНЯЕМ
         with open('two.json', 'w') as f:
-            json.dump(templates_6, f)  # ВПИСЫВАЕМ
-        # записываем параметры ПОЛУЧЕННОГО сообщения во 2 джисон
+            json.dump(templates_6, f, ensure_ascii=False)  # ВПИСЫВАЕМ
+            # записываем параметры ПОЛУЧЕННОГО сообщения во 2 джисон
 
-    def Add_New_user_2(self):  # УСЛИ НАМ ПИШЕТ НОВЫЙ ЧЕЛ ТО ЭТА ФУНКЦИЯ ДОБАВЛЯЕТ ЕГО В СПИСОК КОНТАКТОВ
+    def Add_New_user_2(self, pub_key):  # УСЛИ НАМ ПИШЕТ НОВЫЙ ЧЕЛ ТО ЭТА ФУНКЦИЯ ДОБАВЛЯЕТ ЕГО В СПИСОК КОНТАКТОВ
         #  СТАРАЯ Add_New_user НЕ ПОДХОДИТ Т.К ТУТ ОДИН ПАРАМЕТР ИМЕНИ ЗАДАЕТ ПОЛЬЗОВАТЕЛЬ, А ВТОРОЙ ТИП НОМЕРА КОШЕЛЬКА БАРАТСЯ ИЗ БЛОКА,   КСТА ЕГО СЮДА ТОЖ МОЖЕШЬ ЧЕРЕЗ ПАРАМЕТРЫ ФУНКЦИИ ЗАКИНУТЬ
-        name_of_new_user = self.ui.ввод_имени_польз.text()  # ПЕРЕМЕННАЯ ИМЕНИ НОВОГО ПОЛЬЗОВАТЕЛЯ
-        name_of_new_purse = "453534535434"  # ПЕРЕМЕННАЯ КАШЕЛЬКА БЕРЕТСЯ ИЗ БЛОКА
+        name_of_new_user = "Stranger"  # ПЕРЕМЕННАЯ ИМЕНИ НОВОГО ПОЛЬЗОВАТЕЛЯ
+        name_of_new_purse = pub_key  # ПЕРЕМЕННАЯ КАШЕЛЬКА БЕРЕТСЯ ИЗ БЛОКА
 
         to_json = {"ID_purse": name_of_new_purse, "name": name_of_new_user}
 
@@ -374,7 +394,7 @@ class OneWindow(QtWidgets.QMainWindow):
         templates.append(to_json)  # ДОПОЛНЯЕМ
 
         with open('one.json', 'w') as f:
-            json.dump(templates, f)  # ВПИСЫВАЕМ
+            json.dump(templates, f, ensure_ascii=False)  # ВПИСЫВАЕМ
         #    jooo = templates['user']
 
         self.rewrite_users()
@@ -397,6 +417,8 @@ class OneWindow(QtWidgets.QMainWindow):
             balance = node.get_balance_2()
             self.ui.label_15.setText(str(balance))
             self.ui.label_5.setText(str(node.open_key()))
+            self.load_contacts(node.open_key())
+            self.load_messages(node.open_key())
         else:
             self.ui.lineEdit.setText('')
             self.ui.lineEdit.repaint()
@@ -417,7 +439,7 @@ class OneWindow(QtWidgets.QMainWindow):
                     templates_2.remove(to_json_3)
                     templates_2.insert(0, to_json_3)
                     with open('one.json', 'w') as f:
-                        json.dump(templates_2, f)  # ВПИСЫВАЕМ
+                        json.dump(templates_2, f, ensure_ascii=False)  # ВПИСЫВАЕМ
             self.rewrite_users()
 
             self.cleantextEdit()
@@ -467,9 +489,9 @@ class OneWindow(QtWidgets.QMainWindow):
                 #        print (i['name'])
                 if text == i['name']:
                     name_of_new_purse = i["ID_purse"]
-
-            name_of_new_block = "хуй знает, определиш по транзакции, меня не ебет"
-            to_json_message = {"status": status_now, "ID_purse": name_of_new_purse, "name_of-block": name_of_new_block}
+            signature = Wallet.sign_transaction(node.open_key(), name_of_new_purse, 0.01, message)
+            to_json_message = {"status": status_now, "ID_purse": name_of_new_purse, "message": message,
+                               "time": "delivering", "signature": signature}
 
             print(to_json_message)
             with open('two.json') as f:
@@ -477,7 +499,7 @@ class OneWindow(QtWidgets.QMainWindow):
             templates_4.append(to_json_message)  # ДОПОЛНЯЕМ
 
             with open('two.json', 'w') as f:
-                json.dump(templates_4, f)  # ВПИСЫВАЕМ
+                json.dump(templates_4, f, ensure_ascii=False)  # ВПИСЫВАЕМ
 
             ############################################################################
         else:
@@ -501,19 +523,15 @@ class OneWindow(QtWidgets.QMainWindow):
     def cleantextEdit(self):
         self.ui.textEdit.setText('')
 
-
-#     self.ui.textEdit.Text.TrimEnd('\n', '\r')   #  мусор
-#     self.ui.textEdit.setDisabled(True) #  сбиваю курсор после отправки
-#     self.ui.textEdit.setDisabled(False)
-
+    #     self.ui.textEdit.Text.TrimEnd('\n', '\r')   #  мусор
+    #     self.ui.textEdit.setDisabled(True) #  сбиваю курсор после отправки
+    #     self.ui.textEdit.setDisabled(False)
 
     def main():
-
         app = QtWidgets.QApplication(sys.argv)
         window = OneWindow()
         window.show()
         sys.exit(app.exec_())
-
 
 
 if __name__ == "__main__":

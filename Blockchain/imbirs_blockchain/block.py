@@ -16,7 +16,7 @@ class Block(Printable):
         :proof: The proof of work number that yielded this block.
     """
 
-    def __init__(self, index, previous_hash, transactions, proof, time=time()):
+    def __init__(self, index, previous_hash, transactions, proof, time = time()):
         self.index = index
         self.previous_hash = previous_hash
         self.timestamp = time

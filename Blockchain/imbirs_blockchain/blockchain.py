@@ -11,6 +11,12 @@ from utility.verification import Verification
 from block import Block
 from transaction import Transaction
 from wallet import Wallet
+from Cryptodome.PublicKey import RSA
+from Cryptodome.Signature import PKCS1_v1_5
+from Cryptodome.Hash import SHA256
+import Cryptodome.Random
+import binascii
+
 
 
 # The reward we give to miners (for creating a new block)
@@ -276,9 +282,20 @@ class Blockchain:
         #     'recipient': owner,
         #     'amount': MINING_REWARD
         # }
-
+        with open('wallet-{}.txt'.format(self.node_id), mode='r') as f:
+            keys = f.readlines()
+            private_key = keys[1]
+        msg = "mining"
+        key_1 = RSA.generate(1024, Cryptodome.Random.new().read)
+        key_2 = key_1.publickey()
+        key = binascii.hexlify(key_2.exportKey(format='DER')).decode('ascii')
+        signer = PKCS1_v1_5.new(RSA.importKey(
+            binascii.unhexlify(private_key)))
+        h = SHA256.new((str(self.public_key) + str(key) +
+                        str(10) + str(msg)).encode('utf8'))
+        signature = signer.sign(h)
         reward_transaction = Transaction(
-            'MINING', self.public_key, '', MINING_REWARD, 'mining')
+            'MINING', self.public_key, str(signature), MINING_REWARD, 'mining')
         # Copy transaction instead of manipulating the original
         # open_transactions list
         # This ensures that if for some reason the mining should fail,
@@ -352,7 +369,6 @@ class Blockchain:
                     except ValueError:
                         print('Item was already removed')
         self.save_data()
-        OneWindow.search_message_in_transaction(block['index'], self.public_key)
         return True
 
     def resolve(self):
