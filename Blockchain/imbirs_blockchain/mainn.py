@@ -4,11 +4,15 @@ import json
 import subprocess
 import datetime
 import requests
-
+from Cryptodome.PublicKey import RSA
+from Cryptodome.Signature import PKCS1_v1_5
+from Cryptodome.Hash import SHA256
+import Cryptodome.Random
+import binascii
 from PyQt5 import QtWidgets, QtGui
 from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
-from wallet import Wallet
+import wallet
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -16,6 +20,8 @@ from ui_functions import *
 import node
 from node import *
 
+
+cost = 0.01
 
 class OneWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
@@ -102,9 +108,47 @@ class OneWindow(QtWidgets.QMainWindow):
         text = self.ui.label_7.text()
 
         self.ui.pushButton_19.setText(text)
-        self.ui.pushButton_21.clicked.connect(self.send_coin_2)
+        self.ui.pushButton_21.clicked.connect(self.send_coin_2(text))
 
-    def send_coin_2(self):
+    def send_coin_2(self, text):
+        # with open('one.json') as f:
+        #     templates_2 = json.load(f)
+        # for i in templates_2:
+        #     if text == i['name']:
+        #         to_json_3 = {"ID_purse": i['ID_purse'],
+        #                      "name": i['name']}  # ЗДЕСЬ ИДЕТ ПЕРЕСТАНОВКА ЧЕЛОВЕКУ КОТОРОМУ МЫ НАПИСАЛИ НА 1 МЕСТО
+        #         templates_2.remove(to_json_3)
+        #         templates_2.insert(0, to_json_3)
+        #         with open('one.json', 'w') as f:
+        #             json.dump(templates_2, f, ensure_ascii=False)  # ВПИСЫВАЕМ
+        # self.rewrite_users()
+        # status_now = "send"  # ТОПО ПОЛУЧАЕТ ИЛИ ПРИНИМАЕТ        В ЭТОЙ ФУНКЦИИ СТАТУС ПОСТОЯННЫЙ, Т.К МЫ ЗАПИСЫВАЕМ СООБЩ ОТПРАВЛЕННЫЕ САМИМ "АДМИНОМ"  SEND сенд имеется ввиду получатель, GET ОТПРАВИТЕЛЬ, и через проверку этого параметра сообщ будет висеть справа или слева
+        # with open('one.json') as f:
+        #     templates_2 = json.load(f)
+        # for i in templates_2:
+        #     #        print (i['name'])
+        #     if text == i['name']:
+        #         name_of_new_purse = i["ID_purse"]
+        # with open('wallet-{}.txt'.format(node.port), mode='r') as f:
+        #     keys = f.readlines()
+        #     private_key = keys[1]
+        # signer = PKCS1_v1_5.new(RSA.importKey(
+        #     binascii.unhexlify(private_key)))
+        # h = SHA256.new((str(node.open_key()) + str(name_of_new_purse) +
+        #                 str(cost) + str(message)).encode('utf8'))
+        # signature_1 = signer.sign(h)
+        # signature = binascii.hexlify(signature_1).decode('ascii')
+        # to_json_message = {"status": status_now, "ID_purse": name_of_new_purse, "message": message,
+        #                    "time": "delivering", "signature": signature}
+        #
+        # print(to_json_message)
+        # with open('two.json') as f:
+        #     templates_4 = json.load(f)  # СЧИТЫВАЕМ
+        # templates_4.append(to_json_message)  # ДОПОЛНЯЕМ
+        #
+        # with open('two.json', 'w') as f:
+        #     json.dump(templates_4, f, ensure_ascii=False)  # ВПИСЫВАЕМ
+        # node.add_transaction_client(name_of_new_purse, 0.01, message)
         self.ui.stackedWidget_2.setCurrentWidget(self.ui.page_4)
 
     def rewrite_users(self):
@@ -489,7 +533,15 @@ class OneWindow(QtWidgets.QMainWindow):
                 #        print (i['name'])
                 if text == i['name']:
                     name_of_new_purse = i["ID_purse"]
-            signature = Wallet.sign_transaction(node.open_key(), name_of_new_purse, 0.01, message)
+            with open('wallet-{}.txt'.format(node.port), mode='r') as f:
+                keys = f.readlines()
+                private_key = keys[1]
+            signer = PKCS1_v1_5.new(RSA.importKey(
+                binascii.unhexlify(private_key)))
+            h = SHA256.new((str(node.open_key()) + str(name_of_new_purse) +
+                            str(cost) + str(message)).encode('utf8'))
+            signature_1 = signer.sign(h)
+            signature =  binascii.hexlify(signature_1).decode('ascii')
             to_json_message = {"status": status_now, "ID_purse": name_of_new_purse, "message": message,
                                "time": "delivering", "signature": signature}
 
@@ -500,7 +552,7 @@ class OneWindow(QtWidgets.QMainWindow):
 
             with open('two.json', 'w') as f:
                 json.dump(templates_4, f, ensure_ascii=False)  # ВПИСЫВАЕМ
-
+            node.add_transaction_client(name_of_new_purse, 0.01, message)
             ############################################################################
         else:
             self.ui.textEdit.setPlaceholderText("Please, enter the message...")

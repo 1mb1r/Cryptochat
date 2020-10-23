@@ -155,6 +155,12 @@ def broadcast_block():
         return jsonify(response), 409
 
 
+def add_transaction_client(recipient, amount, msg):
+    signature = wallet.sign_transaction(wallet.public_key, recipient, amount, msg)
+    blockchain.add_transaction(recipient, wallet.public_key, signature, amount, msg)
+
+
+
 @app.route('/transaction', methods=['POST'])
 def add_transaction():
     global port, wallet, blockchain
